@@ -1,0 +1,21 @@
+create table string2
+(
+ename varchar(10)
+);
+insert into string2 values ('DAC'),('CDAC');
+
+create table Tempp
+(
+res varchar(10)
+
+
+);
+
+delimiter //
+create procedure PROC()
+begin
+declare RES varchar(10);
+set RES =(select * from string2 where ename like'%CDAC%');
+insert into Tempp values (RES);
+end; 
+delimiter //;
