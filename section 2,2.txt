@@ -1,0 +1,22 @@
+CREATE TABLE TEMP5(TRIANGLE VARCHAR (20));
+delimiter //
+create function Triangle2(x int,y int,z,int)
+returns boolean deterministric
+begin
+if(x+y>z)and (y+z>x)and (x+z>y)then
+return true;
+else return false;
+end if;
+end; 
+delimeter //
+
+create procedure triangle (x int,y int,z int)
+begin
+declare res varchar(20);
+set res= triangle2(x,y,z);
+insert into temp5 values(res);
+
+end; 
+delimiter//
+call Triangle (1,2,3);
+select * from temp5;

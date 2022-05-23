@@ -1,0 +1,245 @@
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| kolhapur           |
+| mysql              |
+| performance_schema |
+| sakila             |
+| student            |
+| sys                |
+| world              |
++--------------------+
+8 rows in set (0.00 sec)
+
+mysql> using student;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'using student' at line 1
+mysql> show tables;
+ERROR 1046 (3D000): No database selected
+mysql> use student;
+Database changed
+mysql> show tables;
++-------------------+
+| Tables_in_student |
++-------------------+
+| celebraty         |
+| dept              |
+| pharma            |
+| rp                |
++-------------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from dept;
+Empty set (0.00 sec)
+
+mysql> insert into table dept(DEPTNO,DNAME,LOC)
+    -> VALUES (10,'ACCOUNTING','NEW YORK');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'table dept(DEPTNO,DNAME,LOC)
+VALUES (10,'ACCOUNTING','NEW YORK')' at line 1
+mysql> SELECT * FROM DEPT;
+Empty set (0.00 sec)
+
+mysql> insert into dept values(10,'ACCOUNTING','NEWYORK');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO DEPT VALUES(20,'RESEARCH','DALLAS');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO DEPT VALUES(30,'SALES','CHICAGO');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO DEPT VALUES (40,'OPERATIONS','BOSTON');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT * FROM DEPT;
++--------+------------+---------+
+| DEPTNO | DNAME      | LOC     |
++--------+------------+---------+
+|     10 | ACCOUNTING | NEWYORK |
+|     20 | RESEARCH   | DALLAS  |
+|     30 | SALES      | CHICAGO |
+|     40 | OPERATIONS | BOSTON  |
++--------+------------+---------+
+4 rows in set (0.00 sec)
+
+mysql> CREATE TABLE EMP(EMPNO INT(4),ENAME VARCHAR(10),JOB VARCHAR(9),HIREDATE DATE,SAL FLOAT(7,2),COMM FLOAT(7,2),DEPTNO INT(2));
+Query OK, 0 rows affected, 4 warnings (0.02 sec)
+
+mysql> SELECT * FROM EMP;
+Empty set (0.00 sec)
+
+mysql> INSERT INTO EMP VALUES('7839','KING','MANAGER','1991-11-17','5000',NULL,10);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO EMP VALUES('7698','BLAKE','CLERK','1981-05-09','2850',NULL,30);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO EMP VALUES('7782','CLARK','MANAGER','1981-06-09','2450',NULL,10);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO EMP VALUES ('7566','JONES','CLERK','1981-04-02','1250','1400',30);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO EMP VALUES ('7654','MARTIN','SALESMAN','1981-09-28','1250','1400',30);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO EMP VALUES('7499','ALLEN','SALESMAN','1981-02-20','1600','300',30);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT * FROM EMP;
++-------+--------+----------+------------+---------+---------+--------+
+| EMPNO | ENAME  | JOB      | HIREDATE   | SAL     | COMM    | DEPTNO |
++-------+--------+----------+------------+---------+---------+--------+
+|  7839 | KING   | MANAGER  | 1991-11-17 | 5000.00 |    NULL |     10 |
+|  7698 | BLAKE  | CLERK    | 1981-05-09 | 2850.00 |    NULL |     30 |
+|  7782 | CLARK  | MANAGER  | 1981-06-09 | 2450.00 |    NULL |     10 |
+|  7566 | JONES  | CLERK    | 1981-04-02 | 1250.00 | 1400.00 |     30 |
+|  7654 | MARTIN | SALESMAN | 1981-09-28 | 1250.00 | 1400.00 |     30 |
+|  7499 | ALLEN  | SALESMAN | 1981-02-20 | 1600.00 |  300.00 |     30 |
++-------+--------+----------+------------+---------+---------+--------+
+6 rows in set (0.00 sec)
+
+mysql> UPDATE EMP SET HIREDATE='1981-05-01' WHERE EMPNO=7698;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE EMP SET SAL='2975' WHERE ENAME='JONES';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE EMP SET COMM='NULL' WHERE ENAME='JONES';
+ERROR 1265 (01000): Data truncated for column 'COMM' at row 4
+mysql> UPDATE EMP SET COMM=NULL WHERE ENAME='JONES';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE EMP SET DEPTNO=20 WHERE ENAME='JONES';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM EMP;
++-------+--------+----------+------------+---------+---------+--------+
+| EMPNO | ENAME  | JOB      | HIREDATE   | SAL     | COMM    | DEPTNO |
++-------+--------+----------+------------+---------+---------+--------+
+|  7839 | KING   | MANAGER  | 1991-11-17 | 5000.00 |    NULL |     10 |
+|  7698 | BLAKE  | CLERK    | 1981-05-01 | 2850.00 |    NULL |     30 |
+|  7782 | CLARK  | MANAGER  | 1981-06-09 | 2450.00 |    NULL |     10 |
+|  7566 | JONES  | CLERK    | 1981-04-02 | 2975.00 |    NULL |     20 |
+|  7654 | MARTIN | SALESMAN | 1981-09-28 | 1250.00 | 1400.00 |     30 |
+|  7499 | ALLEN  | SALESMAN | 1981-02-20 | 1600.00 |  300.00 |     30 |
++-------+--------+----------+------------+---------+---------+--------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT * FROM EMP WHERE SAL BETWEEN 2500 AND 5000;
++-------+-------+---------+------------+---------+------+--------+
+| EMPNO | ENAME | JOB     | HIREDATE   | SAL     | COMM | DEPTNO |
++-------+-------+---------+------------+---------+------+--------+
+|  7839 | KING  | MANAGER | 1991-11-17 | 5000.00 | NULL |     10 |
+|  7698 | BLAKE | CLERK   | 1981-05-01 | 2850.00 | NULL |     30 |
+|  7566 | JONES | CLERK   | 1981-04-02 | 2975.00 | NULL |     20 |
++-------+-------+---------+------------+---------+------+--------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM EMP ORDER BY ENAME DESC;
++-------+--------+----------+------------+---------+---------+--------+
+| EMPNO | ENAME  | JOB      | HIREDATE   | SAL     | COMM    | DEPTNO |
++-------+--------+----------+------------+---------+---------+--------+
+|  7654 | MARTIN | SALESMAN | 1981-09-28 | 1250.00 | 1400.00 |     30 |
+|  7839 | KING   | MANAGER  | 1991-11-17 | 5000.00 |    NULL |     10 |
+|  7566 | JONES  | CLERK    | 1981-04-02 | 2975.00 |    NULL |     20 |
+|  7782 | CLARK  | MANAGER  | 1981-06-09 | 2450.00 |    NULL |     10 |
+|  7698 | BLAKE  | CLERK    | 1981-05-01 | 2850.00 |    NULL |     30 |
+|  7499 | ALLEN  | SALESMAN | 1981-02-20 | 1600.00 |  300.00 |     30 |
++-------+--------+----------+------------+---------+---------+--------+
+6 rows in set (0.01 sec)
+
+mysql> SELECT LOWER(job) from emp;
++------------+
+| LOWER(job) |
++------------+
+| manager    |
+| clerk      |
+| manager    |
+| clerk      |
+| salesman   |
+| salesman   |
++------------+
+6 rows in set (0.01 sec)
+
+mysql> select ename,length(ename) as length_of_ename;
+ERROR 1054 (42S22): Unknown column 'ename' in 'field list'
+mysql> select ename length(ename) as length-of ename;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(ename) as length-of ename' at line 1
+mysql> select ename, length(ename) as length_of_ename;
+ERROR 1054 (42S22): Unknown column 'ename' in 'field list'
+mysql> select * from emp;
++-------+--------+----------+------------+---------+---------+--------+
+| EMPNO | ENAME  | JOB      | HIREDATE   | SAL     | COMM    | DEPTNO |
++-------+--------+----------+------------+---------+---------+--------+
+|  7839 | KING   | MANAGER  | 1991-11-17 | 5000.00 |    NULL |     10 |
+|  7698 | BLAKE  | CLERK    | 1981-05-01 | 2850.00 |    NULL |     30 |
+|  7782 | CLARK  | MANAGER  | 1981-06-09 | 2450.00 |    NULL |     10 |
+|  7566 | JONES  | CLERK    | 1981-04-02 | 2975.00 |    NULL |     20 |
+|  7654 | MARTIN | SALESMAN | 1981-09-28 | 1250.00 | 1400.00 |     30 |
+|  7499 | ALLEN  | SALESMAN | 1981-02-20 | 1600.00 |  300.00 |     30 |
++-------+--------+----------+------------+---------+---------+--------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT ENAME, LENGTH(ENAME) AS LENGTH_OF_ENAME;
+ERROR 1054 (42S22): Unknown column 'ENAME' in 'field list'
+mysql> SELECT ENAME, LENGTH(ENAME) AS LENGTH_OF_ENAME;
+ERROR 1054 (42S22): Unknown column 'ENAME' in 'field list'
+mysql> SELECT ENAME AS LENGTH_OF_ENAME FROM EMP;
++-----------------+
+| LENGTH_OF_ENAME |
++-----------------+
+| KING            |
+| BLAKE           |
+| CLARK           |
+| JONES           |
+| MARTIN          |
+| ALLEN           |
++-----------------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT DEPTNO COUNT(*) FROM EMP GROUP BY DEPTNO;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'COUNT(*) FROM EMP GROUP BY DEPTNO' at line 1
+mysql> SELECT COUNT(DEPTNO) FROM EMP;
++---------------+
+| COUNT(DEPTNO) |
++---------------+
+|             6 |
++---------------+
+1 row in set (0.01 sec)
+
+mysql> SELECT ENAME,POSITION('AR'IN ENAME)AS FIRST_Occ_ER FROM EMP;
++--------+--------------+
+| ENAME  | FIRST_Occ_ER |
++--------+--------------+
+| KING   |            0 |
+| BLAKE  |            0 |
+| CLARK  |            3 |
+| JONES  |            0 |
+| MARTIN |            2 |
+| ALLEN  |            0 |
++--------+--------------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT ENAME,SAL,SAL*0.2 AS HRA FROM EMP;
++--------+---------+---------+
+| ENAME  | SAL     | HRA     |
++--------+---------+---------+
+| KING   | 5000.00 | 1000.00 |
+| BLAKE  | 2850.00 |  570.00 |
+| CLARK  | 2450.00 |  490.00 |
+| JONES  | 2975.00 |  595.00 |
+| MARTIN | 1250.00 |  250.00 |
+| ALLEN  | 1600.00 |  320.00 |
++--------+---------+---------+
+6 rows in set (0.00 sec)
+
+mysql>
+
+
